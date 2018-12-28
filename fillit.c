@@ -6,13 +6,13 @@
 /*   By: tmann <tmann@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/17 14:33:34 by tmann             #+#    #+#             */
-/*   Updated: 2018/12/27 18:46:04 by fschille         ###   ########.fr       */
+/*   Updated: 2018/12/28 14:05:09 by tmann            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_tet	*head;
 	char	**finmap;

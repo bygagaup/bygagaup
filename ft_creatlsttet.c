@@ -6,7 +6,7 @@
 /*   By: tmann <tmann@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 19:50:47 by tmann             #+#    #+#             */
-/*   Updated: 2018/12/27 16:06:25 by fschille         ###   ########.fr       */
+/*   Updated: 2018/12/28 14:05:47 by tmann            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,18 @@ void			ft_lstaddtet(t_tet **head, t_tet *list)
 		list->prev = tmp;
 		list->next = NULL;
 	}
+}
+
+void			ft_freemap(char **map)
+{
+	int		i;
+
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+	map = NULL;
 }

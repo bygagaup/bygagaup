@@ -6,22 +6,13 @@
 /*   By: tmann <tmann@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/27 16:14:32 by fschille          #+#    #+#             */
-/*   Updated: 2018/12/27 17:12:45 by tmann            ###   ########.fr       */
+/*   Updated: 2018/12/28 16:32:09 by tmann            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void		ft_statnull(t_tet *head)
-{
-	while (head != NULL)
-	{
-		head->stat = 0;
-		head = head->next;
-	}
-}
-
-void		ft_remtet(t_tet *head, char **map)
+char		**ft_remtet(t_tet *head, char **map)
 {
 	int		i;
 	int		j;
@@ -36,9 +27,10 @@ void		ft_remtet(t_tet *head, char **map)
 				map[i][j] = '.';
 			j++;
 		}
+		j = 0;
 		i++;
 	}
-	head->stat = 0;
+	return (map);
 }
 
 void		ft_writemap(char **map)
@@ -52,5 +44,62 @@ void		ft_writemap(char **map)
 		write(1, "\n", 1);
 		i++;
 	}
-	write(1, "\n", 1); //удалить
+}
+
+int			ft_coordinateonmapx(char **map, t_tet *list, int g, int x)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (map[i] && map[i][j])
+	{
+		while (map[i][j] == list->alp)
+		{
+			if (x > j)
+				x = j;
+			j++;
+		}
+		if (j >= g - 1)
+		{
+			i++;
+			j = 0;
+		}
+		else
+			j++;
+	}
+	if (x != 27)
+		return (x);
+	else
+		return (0);
+}
+
+int			ft_coordinateonmapy(char **map, t_tet *list, int g, int y)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (map[i] && map[i][j])
+	{
+		while (map[i][j] == list->alp)
+		{
+			if (y > i)
+				y = i;
+			j++;
+		}
+		if (j >= g - 1)
+		{
+			i++;
+			j = 0;
+		}
+		else
+			j++;
+	}
+	if (y != 27)
+		return (y);
+	else
+		return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tmann <tmann@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/22 17:27:23 by tmann             #+#    #+#             */
-/*   Updated: 2018/12/27 17:10:28 by tmann            ###   ########.fr       */
+/*   Updated: 2018/12/28 19:34:06 by fschille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,34 +22,62 @@ char		**ft_alg(t_tet *head, int i, int k, int g)
 
 	list = head;
 	g = ft_mapsize(ft_counttet(head));
-	map = ft_map(ft_mapsize(ft_counttet(head)));
+	map = ft_map(g);
 	while (list != NULL)
 	{
-		if (list->wi - 1 + g_q >= g)
-		{
-			g_l++;
-			g_q = 0;
-		}
-		if (list->he - 1 + g_l >= g)
-		{
-			g = g + 1;
-			map = ft_map(g);
-			list = head;
-			g_q = 0;
-			g_l = 0;
-		}
-		if (ft_checkaddtetmap(map, list, i, k))
+		ft_tmann(&list, head, &map, &g);
+		ft_fschille(&list, &map, g);
+		if (list->wi - 1 + g_q < g && list->he - 1 +
+				g_l < g && ft_checkaddtetmap(map, list, i, k))
 		{
 			ft_addtetmap(map, list, i, k);
 			list = list->next;
 			g_q = 0;
 			g_l = 0;
-			ft_writemap(map);
 		}
 		else
 			g_q++;
 	}
 	return (map);
+}
+
+void		ft_fschille(t_tet **list, char ***map, int g)
+{
+	if ((*list)->wi - 1 + g_q >= g)
+	{
+		g_l++;
+		g_q = 0;
+	}
+	if ((*list)->prev != NULL && (*list)->he - 1 + g_l >= g)
+	{
+		(*list) = (*list)->prev;
+		g_q = ft_coordinateonmapx(*map, (*list), g, 27) + 1;
+		g_l = ft_coordinateonmapy(*map, (*list), g, 27);
+		*map = ft_remtet((*list), *map);
+	}
+}
+
+void		ft_tmann(t_tet **list, t_tet *head, char ***map, int *g)
+{
+	if ((*list)->prev == NULL && ((*list)->he > *g || (*list)->wi > *g))
+	{
+		(*g) = (*g) + 1;
+		ft_freemap(*map);
+		*map = ft_map(*g);
+		(*list) = head;
+		g_q = 0;
+		g_l = 0;
+	}
+	if ((*list)->prev == 0 && (*list)->he +
+			g_l >= (*g) && (*list)->wi - 1 + g_q >= *g)
+	{
+		(*g) = (*g) + 1;
+		ft_freemap(*map);
+		*map = ft_map(*g);
+		(*list) = head;
+		g_q = 0;
+		g_l = 0;
+	}
 }
 
 int			ft_checkaddtetmap(char **map, t_tet *h, int i, int k)

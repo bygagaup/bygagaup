@@ -6,7 +6,7 @@
 /*   By: tmann <tmann@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 19:00:41 by tmann             #+#    #+#             */
-/*   Updated: 2018/12/27 15:14:38 by tmann            ###   ########.fr       */
+/*   Updated: 2018/12/28 14:24:42 by tmann            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ char		**ft_map(int size)
 
 	j = 0;
 	i = 0;
-	map = (char**)malloc(sizeof(char*) * size + 1);
+	map = (char**)malloc(sizeof(char*) * (size + 1));
 	while (j < size)
 	{
-		map[j] = (char*)malloc(sizeof(char) * size + 1);
+		map[j] = (char*)malloc(sizeof(char) * (size + 1));
 		while (i < size)
 		{
 			map[j][i] = '.';

@@ -15,7 +15,7 @@ all: $(NAME)
 
 $(NAME): $(SRC)
 	$(MAKE) -C libft	
-	gcc -g -Wall -Werror -Wextra $(SRC) $(INCLUDES) -o $(NAME) #убрать -g
+	gcc -Wall -Werror -Wextra $(SRC) $(INCLUDES) -o $(NAME)
 
 clean: 
 	$(MAKE) -C libft clean	
